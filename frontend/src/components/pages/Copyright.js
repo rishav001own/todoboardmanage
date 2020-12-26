@@ -6,8 +6,8 @@ const Copyright = () => {
   return (
     <Typography variant='body2' color='textSecondary' align='center'>
       {'Copyright © '}
-      <Link color='inherit' href='https://material-ui.com/'>
-        TrelloClone
+      <Link color='inherit' href=''>
+        ToDoBoardManage like Trello Web App
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}

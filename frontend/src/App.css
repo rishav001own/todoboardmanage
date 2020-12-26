@@ -14,6 +14,10 @@ a {
 a:hover {
   color: darkgrey;
 }
+.copyright {
+  text-align: center;
+  color: #eee;
+}
 .navbar {
   display: flex;
   flex-direction: row;

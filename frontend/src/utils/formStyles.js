@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
     maxWidth: '100vw',
     padding: '20px',
-    background: 'linear-gradient(135deg, #0079bf, #5067c5)',
+    background: 'linear-gradient(135deg, #2e973c, #14297e)',
   },
   paper: {
     marginTop: theme.spacing(8),
@@ -19,8 +19,12 @@ const useStyles = makeStyles((theme) => ({
     background: 'white',
     maxWidth: '500px',
   },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
