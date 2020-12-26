@@ -1,0 +1,22 @@
+{
+  "name": "todoboardmange",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node-server",
+    "server":"nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rishav001own/todoboardmange.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rishav001own/todoboardmange/issues"
+  },
+  "homepage": "https://github.com/rishav001own/todoboardmange#readme"
+}
