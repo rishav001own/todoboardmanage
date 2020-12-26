@@ -9,7 +9,8 @@ const Landing = () => {
         <div className='landing-inner'>
           <h1>ToDoBoardManage</h1>
           <p>Trello Like Web App</p>
-          <p>Made by Rishav Shekhar Sharma</p>
+          <p>Design and Devloped by "
+          <a href="https://www.linkedin.com/in/rishav-shekhar-sharma-b56715178/">Rishav Shekhar Sharma</a>".</p>
           <div className='buttons'>
             <Button variant='outlined' color='inherit' >
               Login
