@@ -4,7 +4,7 @@ import Landing from './components/pages/Landing';
 import './App.css';
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
-import Alert from './components/design/Alert';
+// import Alert from './components/design/Alert';
 
 // Redux
 import { Provider } from 'react-redux';
