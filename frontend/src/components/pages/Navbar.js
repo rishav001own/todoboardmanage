@@ -8,17 +8,16 @@ import { logout } from '../../actions/auth';
 const Navbar = ({ isAuthenticated, logout }) => {
     if (!isAuthenticated) {
       return '';
-    } else {
-      return (
-        <nav className='navbar'>
-          <Link to='/dashboard'>ToDoBoardManage</Link>
-          <Link to='/' onClick={logout}>
-            Logout
-          </Link>
-        </nav>
-      );
     }
-  };
+    return (
+    <nav className='navbar'>
+        <Link to='/dashboard'>ToDoBoardManage</Link>
+        <Link to='/' onClick={logout}>
+        Logout
+        </Link>
+    </nav>
+    );
+};
 
   Navbar.propTypes = {
     logout: PropTypes.func.isRequired,
