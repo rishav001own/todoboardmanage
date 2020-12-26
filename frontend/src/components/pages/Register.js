@@ -11,8 +11,8 @@ import Container from '@material-ui/core/Container';
 import Copyright from './Copyright';
 import useStyles from '../../utils/formStyles';
 import { connect } from 'react-redux';
-import { setAlert } from '../actions/alert';
-import { register } from '../actions/auth';
+import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
 const Register = ({ setAlert,register }) => {
