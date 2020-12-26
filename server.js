@@ -27,7 +27,9 @@ app.use(express.json({extented:false}))
 
 //routes
 app.use('/auth',require('./routes/auth'));
-app.use('/user',require('./routes/users'))
+app.use('/user',require('./routes/users'));
+app.use('/boards',require('./routes/boards'));
+app.use('/cards',require('./routes/cards'))
 
 // SERVER LISTEN/START
 app.listen(port, () => {
