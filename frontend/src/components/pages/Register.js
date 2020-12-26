@@ -11,7 +11,7 @@ import Container from '@material-ui/core/Container';
 import Copyright from './Copyright';
 import useStyles from '../../utils/formStyles';
 
-export default function SignUp() {
+const Register = ({ setAlert }) => {
     const classes = useStyles();
     const [formData, setFormData] = useState({
       name: '',
@@ -24,7 +24,7 @@ export default function SignUp() {
     const onSubmit = async (e) => {
       e.preventDefault();
       if (password !== password2) {
-        console.log('Passwords do not match');
+        setAlert('Passwords do not match', 'error');
       } else {
         console.log('Success');
       }
@@ -120,3 +120,9 @@ export default function SignUp() {
       </Container>
     );
   }
+};
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+};
+
+export default connect(null, { setAlert })(Register);
