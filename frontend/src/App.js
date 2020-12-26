@@ -4,6 +4,8 @@ import Landing from './components/pages/Landing';
 import './App.css';
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
+import Dashboard from './components/pages/Dashboard';
+import Navbar from './components/pages/Navbar';
 import Alert from './components/design/Alert';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
@@ -26,9 +28,12 @@ const App = () => {
       <Router>
         <Fragment>
           <Route exact path='/' component={Landing} />
+          <Navbar />
+          <Alert />
           <Switch>
             <Route exact path='/register' component={Register} />
             <Route exact path='/login' component={Login} />
+            <Route exact path='/dashboard' component={Dashboard} />
           </Switch>
         </Fragment>
       </Router>

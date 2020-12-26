@@ -1,13 +1,32 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { logout } from '../../actions/auth';
 
-const Navbar = () => {
-  return (
-    <nav className='navbar'>
-      <h2>Home</h2>
-      <h2>ToDoBoardManage</h2>
-      <h2>Account</h2>
-    </nav>
-  );
-};
 
-export default Navbar;
+const Navbar = ({ isAuthenticated, logout }) => {
+    if (!isAuthenticated) {
+      return '';
+    } else {
+      return (
+        <nav className='navbar'>
+          <Link to='/dashboard'>ToDoBoardManage</Link>
+          <Link to='/' onClick={logout}>
+            Logout
+          </Link>
+        </nav>
+      );
+    }
+  };
+
+  Navbar.propTypes = {
+    logout: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool,
+  };
+  
+  const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+  });
+  
+  export default connect(mapStateToProps, { logout })(Navbar);
