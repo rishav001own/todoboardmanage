@@ -1,8 +1,14 @@
 import React, { Fragment } from 'react';
 import { Button } from '@material-ui/core';
 import GithubCorner from 'react-github-corner';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const Landing = () => {
+const Landing = ({ isAuthenticated }) => {
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
   return (
     <Fragment>
       <section className='landing'>
@@ -12,7 +18,7 @@ const Landing = () => {
           <p>Design and Devloped by "
           <a href="https://www.linkedin.com/in/rishav-shekhar-sharma-b56715178/">Rishav Shekhar Sharma</a>".</p>
           <div className='buttons'>
-            <Button variant='outlined' color='inherit' >
+            <Button variant='outlined' color='inherit' href='/login'>
               Login
             </Button>
           </div>
@@ -31,4 +37,12 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+Landing.propTypes = {
+    isAuthenticated: PropTypes.bool,
+  };
+  
+  const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+  });
+  
+  export default connect(mapStateToProps)(Landing);
