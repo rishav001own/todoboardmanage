@@ -13,7 +13,8 @@ const port=process.env.PORT || 9000;
 mongoose.connect(process.env.MONGOURI,{
     useNewUrlParser:true,
     useUnifiedTopology:true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify:false,
 })
 mongoose.connection.on('connected',()=>{
     console.log("mongodb connected")
