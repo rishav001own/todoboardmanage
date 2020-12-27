@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node-server",
     "server": "nodemon server",
-    "frontend":"cd frontend && npm start",
+    "frontend": "cd frontend && npm start",
     "dev": "concurrently \"nodemon server.js\" \"npm run frontend\""
   },
   "repository": {
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/rishav001own/todoboardmange#readme",
   "dependencies": {
+    "amplify": "0.0.11",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
