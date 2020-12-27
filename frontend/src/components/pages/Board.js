@@ -1,33 +1,91 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { Fragment, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { getBoard } from '../../actions/board';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { getBoard, moveCard, moveList } from '../../actions/board';
 import { CircularProgress, Box } from '@material-ui/core';
-import BoardTitle from '../board/boardTitle';
-const Board = ({ board: { board, loading }, getBoard, match, isAuthenticated }) => {
+import BoardTitle from '../board/BoardTitle';
+import BoardDrawer from '../board/BoardDrawer';
+import List from '../list/List';
+import CreateList from '../board/CreateList';
+import Members from '../board/Members';
+import Navbar from './Navbar';
+
+const Board = ({ match }) => {
+  const board = useSelector((state) => state.board.board);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    getBoard(match.params.id);
-  }, [getBoard, match.params.id]);
+    dispatch(getBoard(match.params.id));
+  }, [dispatch, match.params.id]);
+
   if (!isAuthenticated) {
     return <Redirect to='/' />;
   }
-  return loading || !board ? (
-    <Box className='board-loading'>
-      <CircularProgress />
-    </Box>
+
+  const onDragEnd = (result) => {
+    const { source, destination, draggableId, type } = result;
+    if (!destination) {
+      return;
+    }
+    if (type === 'card') {
+      dispatch(
+        moveCard(draggableId, {
+          fromId: source.droppableId,
+          toId: destination.droppableId,
+          toIndex: destination.index,
+        })
+      );
+    } else {
+      dispatch(moveList(draggableId, { toIndex: destination.index }));
+    }
+  };
+
+  return !board ? (
+    <Fragment>
+      <Navbar />
+      <Box className='board-loading'>
+        <CircularProgress />
+      </Box>
+    </Fragment>
   ) : (
-    <section className='board'>
-      <BoardTitle originalTitle={board.title} />
-    </section>
+    <div
+      className='board-and-navbar'
+      style={{
+        backgroundImage:
+          'url(' +
+          (board.backgroundURL
+            ? board.backgroundURL
+            : 'https://images.unsplash.com/photo-1598197748967-b4674cb3c266?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80') +
+          ')',
+      }}
+    >
+      <Navbar />
+      <section className='board'>
+        <div className='board-top'>
+          <div className='board-top-left'>
+            <BoardTitle board={board} />
+            <Members />
+          </div>
+          <BoardDrawer />
+        </div>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId='all-lists' direction='horizontal' type='list'>
+            {(provided) => (
+              <div className='lists' ref={provided.innerRef} {...provided.droppableProps}>
+                {board.lists.map((listId, index) => (
+                  <List key={listId} listId={listId} index={index} />
+                ))}
+                {provided.placeholder}
+                <CreateList />
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </section>
+    </div>
   );
 };
-Board.propTypes = {
-    board: PropTypes.object.isRequired,
-    getBoard: PropTypes.func.isRequired,
-  };
-  const mapStateToProps = (state) => ({
-    board: state.board,
-    isAuthenticated: state.auth.isAuthenticated,
-  });
-  export default connect(mapStateToProps, { getBoard })(Board);
+
+export default Board;

@@ -11,25 +11,31 @@ import Container from '@material-ui/core/Container';
 import Copyright from './Copyright';
 import useStyles from '../../utils/formStyles';
 import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = () => {
     const classes = useStyles();
+  
     const [formData, setFormData] = useState({
       email: '',
       password: '',
     });
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    const dispatch = useDispatch();
+  
     const { email, password } = formData;
+  
     const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  
     const onSubmit = async (e) => {
       e.preventDefault();
-      login(email, password);
+      dispatch(login(email, password));
     };
+  
     if (isAuthenticated) {
-        return <Redirect to='/dashboard' />;
-      }
+      return <Redirect to='/dashboard' />;
+    }
     return (<Container component='main' maxWidth='xs' className={classes.container}>
     <CssBaseline />
     <div className={classes.paper}>
@@ -90,13 +96,5 @@ const Login = ({ login, isAuthenticated }) => {
   </Container>
 );
 }
-Login.propTypes = {
-    login: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool,
-  };
-  
-  const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.isAuthenticated,
-  });
 
-export default connect(mapStateToProps, { login })(Login);
+export default Login;

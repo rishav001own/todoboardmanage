@@ -1,30 +1,43 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { renameBoard } from '../../actions/board';
 import { TextField } from '@material-ui/core';
 
-const BoardTitle = ({ originalTitle, renameBoard }) => {
-  const [title, setTitle] = useState(originalTitle);
+const BoardTitle = ({ board }) => {
+  const [editing, setEditing] = useState(false);
+  const [title, setTitle] = useState(board.title);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setTitle(board.title);
+  }, [board.title]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    renameBoard({ title });
+    dispatch(renameBoard(board._id, { title }));
+    setEditing(false);
   };
 
-  return (
-    <form onSubmit={(e) => onSubmit(e)}>
-      <TextField required value={title} onChange={(e) => setTitle(e.target.value)} />
+  return !editing ? (
+    <h2 className='board-title' onClick={() => setEditing(true)}>
+      {board.title}
+    </h2>
+  ) : (
+    <form className='board-title-form' onSubmit={(e) => onSubmit(e)}>
+      <TextField
+        variant='outlined'
+        required
+        value={title}
+        size='small'
+        onChange={(e) => setTitle(e.target.value)}
+      />
     </form>
   );
 };
 
 BoardTitle.propTypes = {
-  originalTitle: PropTypes.string.isRequired,
-  renameBoard: PropTypes.func.isRequired,
+  board: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  board: state.board.board,
-});
-export default connect(mapStateToProps, { renameBoard })(BoardTitle);
+export default BoardTitle;

@@ -1,31 +1,37 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { addBoard } from '../../actions/board';
 import { Modal, TextField, Button } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import useStyles from '../../utils/modalStyles';
-// import { createBoard } from '../../actions/board';
 
 const CreateBoard = ({ history }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
+  const dispatch = useDispatch();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // createBoard(title);
+    dispatch(addBoard({ title }, history));
   };
 
   const body = (
-    <div className={classes.paper}>
-      <h1>Create new board</h1>
+    <div className={`${classes.paper} ${classes.createBoardModal}`}>
+      <div className={classes.modalTop}>
+        <h1>Create new board</h1>
+        <Button onClick={() => setOpen(false)}>
+          <CloseIcon />
+        </Button>
+      </div>
       <form onSubmit={(e) => onSubmit(e)}>
         <TextField
           variant='outlined'
           margin='normal'
           required
           fullWidth
-          id='title'
           label='Add board title'
-          name='title'
           autoFocus
           value={title}
           onChange={(e) => setTitle(e.target.value)}

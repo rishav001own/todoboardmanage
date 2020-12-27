@@ -2,8 +2,6 @@ import React, { Fragment } from 'react';
 import { Button } from '@material-ui/core';
 import GithubCorner from 'react-github-corner';
 import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 const Landing = () => {
@@ -39,13 +37,5 @@ const Landing = () => {
     </Fragment>
   );
 };
-
-Landing.propTypes = {
-    isAuthenticated: PropTypes.bool,
-  };
   
-  const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.isAuthenticated,
-  });
-  
-  export default connect(mapStateToProps)(Landing);
+  export default Landing;
