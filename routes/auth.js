@@ -44,7 +44,7 @@ async (req,res) => {
                     id: user.id,
                 },
             },
-            process.env.JWTSECRET,{ expiresIn:3600000},(err,token)=>{
+            process.env.JWT_SECRET,{ expiresIn:3600000},(err,token)=>{
                 if(err) throw err;
                 res.json({token});
             }

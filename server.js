@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require('express');
 const mongoose=require('mongoose');
+const cors = require ('cors');
 
 // Initialize App
 const app = express();
@@ -24,14 +25,15 @@ mongoose.connection.on('error',(err)=>{
 
 //middleware
 app.use(express.json({extented:false}))
+app.use(cors())
 
 //routes
-app.use('/auth',require('./routes/auth'));
-app.use('/users',require('./routes/users'));
-app.use('/boards',require('./routes/boards'));
-app.use('/cards',require('./routes/cards'));
-app.use('/checklist',require('./routes/checklists'));
-app.use('/lists',require('./routes/lists'))
+app.use('/api/auth',require('./routes/auth'));
+app.use('/api/users',require('./routes/users'));
+app.use('/api/boards',require('./routes/boards'));
+app.use('/api/cards',require('./routes/cards'));
+app.use('/api/checklist',require('./routes/checklists'));
+app.use('/api/lists',require('./routes/lists'))
 
 // SERVER LISTEN/START
 app.listen(port, () => {

@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { getBoards } from '../../actions/board';
 import CreateBoard from './CreateBoard';
-import Navbar from './Navbar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Dashboard = () => {
@@ -22,7 +21,6 @@ const Dashboard = () => {
 
   return (
     <div className='dashboard-and-navbar'>
-      <Navbar />
       <section className='dashboard'>
         <h1>Welcome {user && user.name}</h1>
         <h2>Your Boards</h2>

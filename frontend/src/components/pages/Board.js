@@ -9,7 +9,6 @@ import BoardDrawer from '../board/BoardDrawer';
 import List from '../list/List';
 import CreateList from '../board/CreateList';
 import Members from '../board/Members';
-import Navbar from './Navbar';
 
 const Board = ({ match }) => {
   const board = useSelector((state) => state.board.board);
@@ -44,7 +43,6 @@ const Board = ({ match }) => {
 
   return !board ? (
     <Fragment>
-      <Navbar />
       <Box className='board-loading'>
         <CircularProgress />
       </Box>
@@ -57,11 +55,10 @@ const Board = ({ match }) => {
           'url(' +
           (board.backgroundURL
             ? board.backgroundURL
-            : 'https://images.unsplash.com/photo-1598197748967-b4674cb3c266?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80') +
+            : '') +
           ')',
       }}
     >
-      <Navbar />
       <section className='board'>
         <div className='board-top'>
           <div className='board-top-left'>

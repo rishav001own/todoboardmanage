@@ -13,10 +13,11 @@ router.post(
   [auth, [check('title', 'Title is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
+    console.log(req.user)
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-
+    
     try {
       const { title, backgroundURL } = req.body;
 
@@ -28,6 +29,7 @@ router.post(
       const user = await User.findById(req.user.id);
       user.boards.unshift(board.id);
       await user.save();
+      
 
       // Add user to board's members as admin
       board.members.push({ user: user.id, name: user.name });

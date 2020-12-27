@@ -6,10 +6,10 @@ import Login from './components/pages/Login';
 import Register from './components/pages/Register';
 import Dashboard from './components/pages/Dashboard';
 import Board from './components/pages/Board';
-import Navbar from './components/pages/Navbar';
 import Alert from './components/design/Alert';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
+import Navbar from './components/pages/Navbar'
 
 // Redux
 import { Provider } from 'react-redux';
@@ -29,8 +29,8 @@ const App = () => {
       <Router>
         <Fragment>
           <Route exact path='/' component={Landing} />
-          <Navbar />
           <Alert />
+          <Navbar />
           <Switch>
             <Route exact path='/register' component={Register} />
             <Route exact path='/login' component={Login} />
