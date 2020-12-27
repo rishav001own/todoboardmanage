@@ -4,11 +4,14 @@ import GithubCorner from 'react-github-corner';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-const Landing = ({ isAuthenticated }) => {
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
-  }
+const Landing = () => {
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  
+    if (isAuthenticated) {
+      return <Redirect to='/dashboard' />;
+    }
   return (
     <Fragment>
       <section className='landing'>

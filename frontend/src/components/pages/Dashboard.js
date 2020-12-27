@@ -1,46 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import axios from 'axios';
+import { getBoards } from '../../actions/board';
 import CreateBoard from './CreateBoard';
+import Navbar from './Navbar';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const Dashboard = ({ auth: { user, isAuthenticated } }) => {
-    const [boards, setBoards] = useState([]);
-  
-    useEffect(() => {
-      (async function getBoards() {
-        setBoards((await axios.get('/api/boards')).data);
-      })();
-    }, []);
-  
-    if (!isAuthenticated) {
-      return <Redirect to='/' />;
-    }
-  
-    return (
+const Dashboard = () => {
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const boards = useSelector((state) => state.board.boards);
+  const loading = useSelector((state) => state.board.dashboardLoading);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getBoards());
+  }, [dispatch]);
+
+  if (!isAuthenticated) {
+    return <Redirect to='/' />;
+  }
+
+  return (
+    <div className='dashboard-and-navbar'>
+      <Navbar />
       <section className='dashboard'>
         <h1>Welcome {user && user.name}</h1>
         <h2>Your Boards</h2>
+        {loading && <CircularProgress className='dashboard-loading' />}
         <div className='boards'>
           {boards.map((board) => (
             <Link key={board._id} to={`/board/${board._id}`} className='board-card'>
               {board.title}
             </Link>
           ))}
-          <CreateBoard/>
+          <CreateBoard />
         </div>
       </section>
-    );
-  };
-
-
-Dashboard.propTypes = {
-  auth: PropTypes.object.isRequired,
+    </div>
+  );
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;
