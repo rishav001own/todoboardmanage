@@ -79,6 +79,10 @@ const Members = () => {
           </div>
         </div>
       )}
+      <div className="search">
+      <Button>Search List</Button>
+      </div>
+
     </div>
   );
 };
