@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { getBoard, moveCard, moveList } from '../../actions/board';
 import { CircularProgress, Box } from '@material-ui/core';
-import BoardTitle from '../board/boardTitle';
+import BoardTitle from '../board/BoardTitle';
 import BoardDrawer from '../board/BoardDrawer';
 import List from '../list/List';
 import CreateList from '../board/CreateList';
