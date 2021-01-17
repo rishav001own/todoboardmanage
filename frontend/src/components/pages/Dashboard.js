@@ -26,6 +26,7 @@ const Dashboard = () => {
 
   const searching = (e) =>{
     setsearchValue(e.target.value)
+    // eslint-disable-next-line array-callback-return
     let filterboard = boards.filter((board)=>{
       if(board.title.includes(e.target.value)){
         return board;
