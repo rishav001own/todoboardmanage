@@ -36,6 +36,15 @@ app.use('/api/cards',require('./routes/cards'));
 app.use('/api/checklist',require('./routes/checklists'));
 app.use('/api/lists',require('./routes/lists'))
 
+//server static production
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('frontend/build'));
+
+    app.get('*',(req,res) =>{
+        res.sendFile(path.resolve(__dirname,'frontend','build',index.html))
+    })
+}
+
 // SERVER LISTEN/START
 app.listen(port, () => {
     console.log(`Server has started on :${port}`);
