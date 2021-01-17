@@ -37,7 +37,7 @@ app.use('/api/checklist',require('./routes/checklists'));
 app.use('/api/lists',require('./routes/lists'))
 
 //server static production
-if(process.env === 'production'){
+if(process.env.NODE_ENV === 'production'){
     app.use(express.static('frontend/build'));
 
     app.get('*',(req,res) =>{
